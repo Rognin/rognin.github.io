@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" class="no-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Artem Gusev — game developer. Portfolio of personal and study projects." />
+  <title>Artem Gusev | Game Dev Portfolio</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+  <!-- Runs synchronously before first paint to prevent a flash of the wrong theme.
+       Wrapped in a block so `savedTheme` doesn't leak into global scope and
+       collide with the same variable name in script.js. -->
+  <script>
+    {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+      // No saved preference and no system light preference → dark is CSS default
+
+      // Hide the page before first paint to prevent:
+      // - flash of wrong scroll position (on reload)
+      // - flash of unstyled text while fonts load (on all visits)
+      document.documentElement.style.visibility = 'hidden';
+    }
+  </script>
+</head>
+<body>
+
+
+  <!-- ===================== HEADER / NAV ===================== -->
+  <header id="site-header">
+    <div class="header-inner">
+      <a href="#home" class="site-logo"><span class="logo-dot">Artem Gusev</span></a>
+
+      <button class="nav-toggle" id="nav-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="primary-nav">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+
+      <nav id="primary-nav">
+        <a href="#home">Home</a>
+        <a href="#projects">Projects</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="header-right">
+        <a href="assets/resume/resume.pdf" class="nav-resume-link" target="_blank" rel="noopener">Resume</a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Switch to light mode">
+        <!-- Sun icon — shown in dark mode -->
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon — shown in light mode -->
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+  <!-- ===================== HERO ===================== -->
+  <section id="home">
+    <video class="hero-video" autoplay muted loop playsinline>
+      <source src="assets/videos/showreel.webm" type="video/webm" />
+      <source src="assets/videos/showreel.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-overlay" aria-hidden="true"></div>
+    <div class="home-content">
+      <h1 class="home-name">Artem Gusev</h1>
+      <p class="home-tagline">Game Developer</p>
+      <div class="home-cta-group">
+        <a href="#projects" class="btn btn-primary">View My Work</a>
+        <a href="#about" class="btn btn-ghost">About Me</a>
+        <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PROJECTS ===================== -->
+  <section id="projects">
+    <div class="section-inner">
+      <h2 class="section-title">Projects</h2>
+
+      <!-- Filter bar — update data-filter values to match your actual engines/types -->
+      <div class="filter-bar" role="group" aria-label="Filter projects by engine or type">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="unity">Unity</button>
+        <button class="filter-btn" data-filter="godot">Godot</button>
+        <button class="filter-btn" data-filter="unreal">Unreal</button>
+        <button class="filter-btn" data-filter="jam">Game Jam</button>
+      </div>
+
+      <!-- Cards are generated from projects.js — edit that file to add/update projects -->
+      <div class="projects-grid" id="projects-grid"></div>
+    </div>
+  </section>
+
+  <!-- ===================== ABOUT ===================== -->
+  <section id="about">
+    <div class="section-inner">
+      <h2 class="section-title">About Me</h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>Hi! I'm Artem, a game developer studying at Hochschule Darmstadt. My passion is gameplay programming, and for the past year I've been making games with Unity.</p>
+          <p>In my projects I focus on the user experience. If it's a game, I make sure that it's fun, engaging and has a hook. If it's an app, I try to make it useful, convenient and elegant.</p>
+          <p>While I mostly work with Unity, I like to explore other engines and tools. You can learn more about my work in the Projects section.</p>
+        </div>
+        <div class="about-image">
+          <img src="assets/images/profile.png" alt="Artem Gusev" width="280" height="280" />
+        </div>
+        <div class="skills-grid">
+          <div class="skill-row">
+            <span class="skill-category">Engine</span>
+            <div class="skill-chips"><span class="skill-chip">Unity</span></div>
+          </div>
+          <div class="skill-row">
+            <span class="skill-category">Languages</span>
+            <div class="skill-chips">
+              <span class="skill-chip">C#</span>
+              <span class="skill-chip">C++</span>
+            </div>
+          </div>
+          <div class="skill-row">
+            <span class="skill-category">Tools</span>
+            <div class="skill-chips">
+              <span class="skill-chip">Git</span>
+              <span class="skill-chip">Blender</span>
+              <span class="skill-chip">Maya</span>
+              <span class="skill-chip">FMOD</span>
+            </div>
+          </div>
+        </div>
+        <div class="fav-games">
+          <span class="fav-games-label">Favorite games</span>
+          <ul>
+            <li>Hollow Knight</li>
+            <li>A Short Hike</li>
+            <li>Blue Prince</li>
+            <li>Celeste</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONTACT ===================== -->
+  <section id="contact">
+    <div class="section-inner contact-inner">
+      <h2 class="section-title">Get in Touch</h2>
+      <p class="contact-availability">I am available for internships and part-time positions.</p>
+      <div class="contact-email-row">
+        <a href="mailto:arteam.gusev14@gmail.com" class="contact-email-link">arteam.gusev14@gmail.com</a>
+        <button class="contact-copy-btn" id="copy-email-btn" aria-label="Copy email address">
+          <svg class="icon-copy" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <svg class="icon-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        </button>
+      </div>
+      <nav class="contact-social" aria-label="Social links">
+        <a href="https://github.com/Rognin" target="_blank" rel="noopener" aria-label="GitHub profile">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          GitHub
+        </a>
+        <a href="https://rognin.itch.io/" target="_blank" rel="noopener" aria-label="itch.io profile">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.13 1.338C2.08 1.96.02 4.328 0 4.95v1.03c0 1.303 1.22 2.45 2.325 2.45 1.33 0 2.436-1.102 2.436-2.41 0 1.308 1.07 2.41 2.4 2.41 1.328 0 2.362-1.102 2.362-2.41 0 1.308 1.137 2.41 2.466 2.41h.024c1.33 0 2.466-1.102 2.466-2.41 0 1.308 1.034 2.41 2.363 2.41 1.33 0 2.4-1.102 2.4-2.41 0 1.308 1.106 2.41 2.435 2.41C22.78 8.43 24 7.282 24 5.98V4.95c-.02-.62-2.082-2.99-3.13-3.612-3.253-.114-5.508-.134-8.87-.133-3.362 0-7.945.053-8.87.133zm6.376 6.477a2.74 2.74 0 0 1-.468.602c-.5.49-1.19.795-1.947.795a2.786 2.786 0 0 1-1.95-.795c-.182-.178-.32-.37-.446-.59-.127.222-.303.412-.486.59a2.788 2.788 0 0 1-1.95.795c-.092 0-.187-.025-.264-.052-.107 1.113-.152 2.176-.168 2.95v.005l-.006 1.167c.02 2.334-.23 7.564 1.03 8.85 1.952.454 5.545.662 9.15.663 3.605 0 7.198-.21 9.15-.664 1.26-1.284 1.01-6.514 1.03-8.848l-.006-1.167v-.004c-.016-.775-.06-1.838-.168-2.95-.077.026-.172.052-.263.052a2.788 2.788 0 0 1-1.95-.795c-.184-.178-.36-.368-.486-.59-.127.22-.265.412-.447.59a2.786 2.786 0 0 1-1.95.794c-.76 0-1.446-.303-1.948-.793a2.74 2.74 0 0 1-.468-.602 2.738 2.738 0 0 1-.463.602 2.787 2.787 0 0 1-1.95.794h-.16a2.787 2.787 0 0 1-1.95-.793 2.738 2.738 0 0 1-.464-.602zm-2.004 2.59v.002c.795.002 1.5 0 2.373.953.687-.072 1.406-.108 2.125-.107.72 0 1.438.035 2.125.107.873-.953 1.578-.95 2.372-.953.376 0 1.876 0 2.92 2.934l1.123 4.028c.832 2.995-.266 3.068-1.636 3.07-2.03-.075-3.156-1.55-3.156-3.025-1.124.184-2.436.276-3.748.277-1.312 0-2.624-.093-3.748-.277 0 1.475-1.125 2.95-3.156 3.026-1.37-.004-2.468-.077-1.636-3.072l1.122-4.027c1.045-2.934 2.545-2.934 2.92-2.934zM12 12.714c-.002.002-2.14 1.964-2.523 2.662l1.4-.056v1.22c0 .056.56.033 1.123.007.562.026 1.124.05 1.124-.008v-1.22l1.4.055C14.138 14.677 12 12.713 12 12.713z"/></svg>
+          itch.io
+        </a>
+        <a href="https://www.linkedin.com/in/artem-gusev14" target="_blank" rel="noopener" aria-label="LinkedIn profile">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+      </nav>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer id="site-footer">
+    <div class="footer-inner">
+      <p class="footer-copy">&copy; 2026 Artem Gusev</p>
+    </div>
+  </footer>
+
+  <script src="projects.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

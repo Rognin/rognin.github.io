@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Decoration Options Test</title>
+  <style>
+    :root {
+      --color-bg:               #1c1917;
+      --color-bg-surface:       #272018;
+      --color-bg-elevated:      #332a1e;
+      --color-accent:           #c86820;
+      --color-accent-highlight: #f4a261;
+      --color-border:           #3d3228;
+      --color-text:             #fdf0e6;
+      --color-text-muted:       #a8917a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--color-bg);
+      color: var(--color-text);
+      font-family: sans-serif;
+      padding: 2rem;
+    }
+
+    h2 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--color-text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .option {
+      margin-bottom: 3rem;
+    }
+
+    /* ─── shared deco wrapper ─── */
+    .deco {
+      width: 100%;
+      background: var(--color-bg);
+      overflow: hidden;
+      line-height: 0;
+    }
+
+    /* ══════════════════════════════════════════
+       OPTION A — Pixel platformer scene (SVG)
+       Shapes in a warm mid-tone, more visible
+    ══════════════════════════════════════════ */
+    .deco-a svg {
+      width: 100%;
+      height: 120px;
+      display: block;
+      fill: var(--color-bg-elevated);
+    }
+
+    /* ══════════════════════════════════════════
+       OPTION B — Repeating tile pattern
+       Small game icons tiled across the strip
+    ══════════════════════════════════════════ */
+    .deco-b {
+      height: 80px;
+      /* SVG data URI pattern: a coin, a star, a pixel heart */
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3C!-- coin --%3E%3Crect x='10' y='30' width='14' height='18' fill='%233d3228'/%3E%3Crect x='12' y='27' width='10' height='3' fill='%233d3228'/%3E%3Crect x='12' y='48' width='10' height='3' fill='%233d3228'/%3E%3Crect x='8' y='33' width='3' height='12' fill='%233d3228'/%3E%3Crect x='23' y='33' width='3' height='12' fill='%233d3228'/%3E%3C!-- star --%3E%3Crect x='44' y='32' width='6' height='6' fill='%233d3228'/%3E%3Crect x='40' y='36' width='14' height='4' fill='%233d3228'/%3E%3Crect x='42' y='38' width='10' height='6' fill='%233d3228'/%3E%3Crect x='40' y='42' width='4' height='4' fill='%233d3228'/%3E%3Crect x='50' y='42' width='4' height='4' fill='%233d3228'/%3E%3C/svg%3E");
+      background-repeat: repeat-x;
+      background-position: center;
+    }
+
+    /* ══════════════════════════════════════════
+       OPTION C — Accent-colour scanline texture
+       Very subtle orange-tinted horizontal lines
+    ══════════════════════════════════════════ */
+    .deco-c {
+      height: 60px;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 3px,
+        rgba(200, 104, 32, 0.06) 3px,
+        rgba(200, 104, 32, 0.06) 4px
+      );
+      border-top: 1px solid var(--color-border);
+    }
+
+    /* ══════════════════════════════════════════
+       OPTION D — Silhouette city / terrain (SVG)
+       Layered buildings / hills, very subtle
+    ══════════════════════════════════════════ */
+    .deco-d svg {
+      width: 100%;
+      height: 120px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="option">
+    <h2>Option A — Pixel platformer scene</h2>
+    <div class="deco deco-a">
+      <svg viewBox="0 0 1200 120" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+        <!-- sky fill so the scene reads clearly -->
+        <rect x="0" y="0" width="1200" height="120" fill="#1c1917"/>
+        <!-- ground -->
+        <rect x="0" y="104" width="1200" height="16"/>
+        <!-- platforms -->
+        <rect x="60"  y="80" width="100" height="10"/>
+        <rect x="260" y="64" width="80"  height="10"/>
+        <rect x="480" y="72" width="120" height="10"/>
+        <rect x="720" y="56" width="80"  height="10"/>
+        <rect x="960" y="76" width="100" height="10"/>
+        <!-- character on first platform: head, body, legs -->
+        <rect x="86"  y="58" width="14" height="14"/>
+        <rect x="84"  y="72" width="18" height="18"/>
+        <rect x="84"  y="90" width="7"  height="8"/>
+        <rect x="95"  y="90" width="7"  height="8"/>
+        <!-- coin above centre platform -->
+        <rect x="526" y="52" width="12" height="12"/>
+        <rect x="528" y="50" width="8"  height="2"/>
+        <rect x="528" y="64" width="8"  height="2"/>
+        <!-- flag on right platform -->
+        <rect x="1026" y="48" width="5" height="28"/>
+        <rect x="1031" y="48" width="18" height="12"/>
+        <!-- small enemy on mid-right platform: round body, feet -->
+        <rect x="742" y="40" width="14" height="12"/>
+        <rect x="740" y="52" width="18" height="10"/>
+        <rect x="740" y="62" width="6"  height="6"/>
+        <rect x="752" y="62" width="6"  height="6"/>
+        <!-- eyes on enemy (lighter rect cutouts — bg colour) -->
+        <rect x="744" y="43" width="4" height="4" fill="#1c1917"/>
+        <rect x="750" y="43" width="4" height="4" fill="#1c1917"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="option">
+    <h2>Option B — Repeating pixel tile pattern</h2>
+    <div class="deco deco-b"></div>
+  </div>
+
+  <div class="option">
+    <h2>Option C — Scanline texture (very subtle)</h2>
+    <div class="deco deco-c"></div>
+  </div>
+
+  <div class="option">
+    <h2>Option D — Layered silhouette skyline</h2>
+    <div class="deco deco-d">
+      <svg viewBox="0 0 1200 120" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+        <!-- back layer: distant hills/mountains -->
+        <path d="M0 120 L0 80 Q100 50 200 75 Q300 95 400 60 Q500 30 600 65 Q700 95 800 55 Q900 25 1000 60 Q1100 90 1200 70 L1200 120 Z"
+              fill="#272018"/>
+        <!-- front layer: closer terrain / ruins -->
+        <path d="M0 120 L0 95 L40 95 L40 85 L60 85 L60 75 L80 75 L80 85 L100 85 L100 95
+                 L160 95 L160 88 L175 88 L175 78 L185 78 L185 68 L195 68 L195 78 L205 78 L205 88 L220 88 L220 95
+                 L320 95 L320 90 L340 90 L340 80 L355 80 L355 90 L370 90 L370 95
+                 L500 95 L500 85 L514 85 L514 72 L520 65 L526 72 L526 85 L540 85 L540 95
+                 L680 95 L680 88 L695 88 L695 78 L710 78 L710 88 L725 88 L725 95
+                 L820 95 L820 85 L835 85 L835 75 L845 75 L845 65 L855 65 L855 75 L865 75 L865 85 L880 85 L880 95
+                 L1000 95 L1000 88 L1015 88 L1015 78 L1025 78 L1025 88 L1040 88 L1040 95
+                 L1100 95 L1100 85 L1115 85 L1115 75 L1125 75 L1125 85 L1140 85 L1140 95
+                 L1200 95 L1200 120 Z"
+              fill="#332a1e"/>
+        <!-- ground line -->
+        <rect x="0" y="108" width="1200" height="12" fill="#3d3228"/>
+      </svg>
+    </div>
+  </div>
+
+</body>
+</html>

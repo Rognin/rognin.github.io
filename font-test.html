@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hero Font Options — Chakra Petch & Similar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&family=Electrolize&family=Aldrich&family=Michroma&family=Jura:wght@700&family=Quantico:wght@700&family=Nova+Square&family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --color-bg:               #1c1917;
+      --color-accent-highlight: #f4a261;
+      --color-border:           #3d3228;
+      --color-text:             #fdf0e6;
+      --color-text-muted:       #a8917a;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--color-bg);
+      font-family: 'Inter', sans-serif;
+      color: var(--color-text);
+    }
+
+    .screen {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem;
+      border-bottom: 1px solid var(--color-border);
+      position: relative;
+    }
+
+    .screen-label {
+      position: absolute;
+      top: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      white-space: nowrap;
+    }
+
+    .name {
+      font-size: clamp(2.75rem, 7vw, 5rem);
+      font-weight: 700;
+      line-height: 1;
+      color: var(--color-text);
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .title {
+      font-size: clamp(1.3rem, 3vw, 1.8rem);
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      color: var(--color-accent-highlight);
+      text-align: center;
+    }
+
+    .f-chakra      .name { font-family: 'Chakra Petch', sans-serif; }
+    .f-electrolize .name { font-family: 'Electrolize', sans-serif; }
+    .f-aldrich     .name { font-family: 'Aldrich', sans-serif; }
+    .f-michroma    .name { font-family: 'Michroma', sans-serif; }
+    .f-jura        .name { font-family: 'Jura', sans-serif; }
+    .f-quantico    .name { font-family: 'Quantico', sans-serif; }
+    .f-nova        .name { font-family: 'Nova Square', sans-serif; }
+  </style>
+</head>
+<body>
+
+  <section class="screen f-chakra">
+    <p class="screen-label">Chakra Petch — reference</p>
+    <h1 class="name">Artem Gusev</h1>
+    <p class="title">Game Developer</p>
+  </section>
+
+  <section class="screen f-electrolize">
+    <p class="screen-label">Electrolize — cleaner, more minimal</p>
+    <h1 class="name">Artem Gusev</h1>
+    <p class="title">Game Developer</p>
+  </section>
+
+  <section class="screen f-aldrich">
+    <p class="screen-label">Aldrich — geometric, slightly wider</p>
+    <h1 class="name">Artem Gusev</h1>
+    <p class="title">Game Developer</p>
+  </section>
+
+  <section class="screen f-michroma">
+    <p class="screen-label">Michroma — industrial, heavier cuts</p>
+    <h1 class="name">Artem Gusev</h1>
+    <p class="title">Game Developer</p>
+  </section>
+
+  <section class="screen f-jura">
+    <p class="screen-label">Jura — softer, more approachable</p>
+    <h1 class="name">Artem Gusev</h1>
+    <p class="title">Game Developer</p>
+  </section>
+
+  <section class="screen f-quantico">
+    <p class="screen-label">Quantico — military/tech, angular</p>
+    <h1 class="name">Artem Gusev</h1>
+    <p class="title">Game Developer</p>
+  </section>
+
+  <section class="screen f-nova">
+    <p class="screen-label">Nova Square — geometric, rounded corners</p>
+    <h1 class="name">Artem Gusev</h1>
+    <p class="title">Game Developer</p>
+  </section>
+
+</body>
+</html>
