@@ -1,0 +1,16 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+
+# Claude Code local config
+.claude/
+
+# Dev/scratch files
+content-guide.md
+deco-test.html
+font-test.html
+hero-test.html

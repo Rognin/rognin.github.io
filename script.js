@@ -121,7 +121,7 @@ function buildCards() {
     mediaOverlay.className = 'card-media-overlay';
     const viewBtn          = document.createElement('a');
     viewBtn.className      = 'btn-play-modal';
-    viewBtn.href           = `projects/index.html?id=${slug}`;
+    viewBtn.href           = `projects/?id=${slug}`;
     viewBtn.textContent    = 'View Details';
     mediaOverlay.appendChild(viewBtn);
     cardMedia.appendChild(mediaOverlay);
@@ -134,7 +134,7 @@ function buildCards() {
     meta.className = 'card-meta';
     [
       { text: data.engine, cls: 'tag-engine' },
-      { text: data.genre,  cls: 'tag-genre'  },
+      { text: data.lang,   cls: 'tag-lang'   },
       { text: data.jam,    cls: 'tag-jam'    },
     ].forEach(({ text, cls }) => {
       if (!text) return;
@@ -161,19 +161,25 @@ function buildCards() {
     desc.className   = 'card-desc';
     desc.textContent = data.cardDesc || '';
 
-    const linksDiv     = document.createElement('div');
-    linksDiv.className = 'card-links';
-    (data.links || []).forEach((l) => {
-      const a       = document.createElement('a');
-      a.href        = l.url;
-      a.className   = 'card-link';
-      a.target      = '_blank';
-      a.rel         = 'noopener';
-      a.textContent = l.label;
-      linksDiv.appendChild(a);
-    });
+    const contribsWrap = document.createElement('div');
+    contribsWrap.className = 'card-contributions-wrap';
+    if ((data.contributions || []).length && data.contributionsTitle !== '') {
+      const contribsTitle = document.createElement('p');
+      contribsTitle.className = 'card-contributions-title';
+      contribsTitle.textContent = data.contributionsTitle ?? 'My contributions';
+      contribsWrap.appendChild(contribsTitle);
+    }
 
-    cardBody.append(meta, h3, techRow, desc, linksDiv);
+    const contribs = document.createElement('ul');
+    contribs.className = 'card-contributions';
+    (data.contributions || []).forEach((c) => {
+      const li = document.createElement('li');
+      li.textContent = c;
+      contribs.appendChild(li);
+    });
+    contribsWrap.appendChild(contribs);
+
+    cardBody.append(meta, h3, techRow, desc, contribsWrap);
     article.append(cardMedia, cardBody);
     grid.appendChild(article);
   });

@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "WebFetch(domain:cdn.jsdelivr.net)",
-      "WebFetch(domain:hugo.fyi)",
-      "WebFetch(domain:warlock.hugo.fyi)"
-    ]
-  }
-}
