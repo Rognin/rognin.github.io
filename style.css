@@ -13,7 +13,7 @@
   --color-accent-glow: rgba(200, 104, 32, 0.35);
   --color-accent-dim:  rgba(244, 162, 97, 0.1);
   --color-text:        #fdf0e6;
-  --color-text-muted:  #c8b09a;
+  --color-text-muted:  #d0c3b6;
   --color-text-inverse:#1c1917;
 
   --font-display: 'Chakra Petch', sans-serif;
@@ -1311,19 +1311,19 @@ main {
    ===================================================================== */
 [data-theme="light"] {
   color-scheme: light;
-  --color-bg:               #e4d4c0;
-  --color-bg-rgb:           228, 212, 192;
-  --color-bg-surface:       #f0e4d0;
-  --color-bg-elevated:      #d8c8b4;
-  --color-border:           #c4a888;
-  --color-accent:           #c86820;
-  --color-accent-highlight: #e8903a;
-  --color-accent-glow:      rgba(200, 104, 32, 0.2);
-  --color-accent-dim:       rgba(200, 104, 32, 0.08);
-  --color-text:             #201408;
-  --color-text-muted:       #806050;
-  --color-text-inverse:     #e4d4c0;
-  --color-secondary:        #1a7a96;
+  --color-bg:               #ede4d8;
+  --color-bg-rgb:           237, 228, 216;
+  --color-bg-surface:       #f5ede2;
+  --color-bg-elevated:      #e0d0bc;
+  --color-border:           #c8b8a4;
+  --color-accent:           #f2723a;
+  --color-accent-highlight: #ff6600;
+  --color-accent-glow:      rgba(242, 114, 58, 0.2);
+  --color-accent-dim:       rgba(242, 114, 58, 0.08);
+  --color-text:             #1a0e06;
+  --color-text-muted:       #3e3128;
+  --color-text-inverse:     #ede4d8;
+  --color-secondary:        #037fd8;
   --shadow-card:            0 4px 24px rgba(0, 0, 0, 0.12);
   --shadow-glow:            0 0 20px var(--color-accent-glow);
 }
