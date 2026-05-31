@@ -51,22 +51,44 @@
 
   // ── 5. Populate sections ─────────────────────────────────────────────
   const projTitle = document.getElementById('proj-title');
-  const projTech  = document.getElementById('proj-tech');
+  const projMeta  = document.getElementById('proj-meta');
   const projMedia = document.getElementById('proj-media');
   const projDesc  = document.getElementById('proj-desc');
   const projLinks = document.getElementById('proj-links');
-  const projFeats = document.getElementById('proj-features');
+  const projFeatsIntro = document.getElementById('proj-features-intro');
+  const projFeats      = document.getElementById('proj-features');
 
   // Title
   projTitle.textContent = data.title;
 
-  // Tech badges
-  (data.techStack || []).forEach((tech) => {
-    const badge       = document.createElement('span');
-    badge.className   = 'modal-tech-badge'; // reuses existing badge style
-    badge.textContent = tech;
-    projTech.appendChild(badge);
-  });
+  // Meta info table
+  const metaItems = [
+    { label: 'Duration', value: data.duration },
+    { label: 'Team',     value: data.teamSize  },
+    { label: 'Role',     value: data.role      },
+    { label: 'Engine',   value: data.engine    },
+    { label: 'Language', value: data.lang      },
+    { label: 'Context',  value: data.jam       },
+  ].filter(({ value }) => value);
+
+  if ((data.techStack || []).length) {
+    metaItems.push({ label: 'Tools', value: data.techStack.join(', ') });
+  }
+
+  if (metaItems.length) {
+    metaItems.forEach(({ label, value }) => {
+      const item = document.createElement('div');
+      item.className = 'project-meta-item';
+      const dt = document.createElement('dt');
+      dt.textContent = label;
+      const dd = document.createElement('dd');
+      dd.textContent = value;
+      item.append(dt, dd);
+      projMeta.appendChild(item);
+    });
+  } else {
+    projMeta.hidden = true;
+  }
 
   // Media
   if (data.mediaType === 'youtube') {
@@ -102,6 +124,13 @@
     projLinks.appendChild(a);
   });
 
+  // Features intro
+  if (data.featuresIntro) {
+    projFeatsIntro.textContent = data.featuresIntro;
+  } else {
+    projFeatsIntro.hidden = true;
+  }
+
   // ── 6. Feature accordion ─────────────────────────────────────────────
 
   // Adjust open ancestor panels by a height delta so their max-height
@@ -115,6 +144,9 @@
       ancestor = ancestor.parentElement?.closest('.feature-body');
     }
   }
+
+  // Panels registered here (parent before children) for state restoration.
+  const panelsToRestore = [];
 
   // Builds one accordion panel. Call recursively for subfeatures.
   // id must be unique across the page (used for aria-controls).
@@ -157,6 +189,9 @@
     const body      = document.createElement('div');
     body.className  = 'feature-body';
     body.id         = id;
+
+    // Register parent before children so restoration order is outer→inner.
+    panelsToRestore.push({ id, body, header });
 
     // Inner wrapper required for grid 0fr trick
     const inner     = document.createElement('div');
@@ -205,10 +240,12 @@
     let highlighted = false;
     header.addEventListener('click', () => {
       const isOpen = header.getAttribute('aria-expanded') === 'true';
-      header.setAttribute('aria-expanded', String(!isOpen));
-      body.classList.toggle('is-open', !isOpen);
+      const nowOpen = !isOpen;
+      header.setAttribute('aria-expanded', String(nowOpen));
+      body.classList.toggle('is-open', nowOpen);
+      localStorage.setItem(`accordion-${slug}-${id}`, String(nowOpen));
 
-      if (!isOpen) {
+      if (nowOpen) {
         const h = body.scrollHeight;
         body.style.maxHeight = h + 'px';
         adjustAncestors(body, h);
@@ -231,6 +268,17 @@
   if (data.features?.length) {
     data.features.forEach((feature, i) => {
       projFeats.appendChild(createFeaturePanel(feature, `feat-body-${i}`));
+    });
+
+    // Restore open state saved from previous visit (outer panels first).
+    panelsToRestore.forEach(({ id, body, header }) => {
+      if (localStorage.getItem(`accordion-${slug}-${id}`) === 'true') {
+        header.setAttribute('aria-expanded', 'true');
+        body.classList.add('is-open');
+        const h = body.scrollHeight;
+        body.style.maxHeight = h + 'px';
+        adjustAncestors(body, h);
+      }
     });
   } else {
     // No features — hide the container so it leaves no gap

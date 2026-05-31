@@ -103,7 +103,24 @@ function buildCards() {
     cardMedia.className = 'card-media';
 
     const thumbSrc = data.thumb || (data.mediaType === 'image' ? data.mediaSrc : null);
-    if (thumbSrc) {
+    if (data.thumbVideo) {
+      const vid         = document.createElement('video');
+      vid.autoplay      = true;
+      vid.loop          = true;
+      vid.muted         = true;
+      vid.playsInline   = true;
+      vid.width         = 640;
+      vid.height        = 360;
+      if (thumbSrc) vid.poster = thumbSrc;
+      const srcWebm     = document.createElement('source');
+      srcWebm.src       = data.thumbVideo + '.webm';
+      srcWebm.type      = 'video/webm';
+      const srcMp4      = document.createElement('source');
+      srcMp4.src        = data.thumbVideo + '.mp4';
+      srcMp4.type       = 'video/mp4';
+      vid.append(srcWebm, srcMp4);
+      cardMedia.appendChild(vid);
+    } else if (thumbSrc) {
       const img   = document.createElement('img');
       img.src     = thumbSrc;
       img.alt     = data.title || '';
@@ -143,19 +160,16 @@ function buildCards() {
       span.textContent = text;
       meta.appendChild(span);
     });
+    (data.techStack || []).forEach((tech) => {
+      const chip       = document.createElement('span');
+      chip.className   = 'tag tag-tool';
+      chip.textContent = tech;
+      meta.appendChild(chip);
+    });
 
     const h3       = document.createElement('h3');
     h3.className   = 'card-title';
     h3.textContent = data.title || '';
-
-    const techRow     = document.createElement('div');
-    techRow.className = 'card-tech-stack';
-    (data.techStack || []).forEach((tech) => {
-      const chip       = document.createElement('span');
-      chip.className   = 'card-tech-chip';
-      chip.textContent = tech;
-      techRow.appendChild(chip);
-    });
 
     const desc       = document.createElement('p');
     desc.className   = 'card-desc';
@@ -179,7 +193,7 @@ function buildCards() {
     });
     contribsWrap.appendChild(contribs);
 
-    cardBody.append(meta, h3, techRow, desc, contribsWrap);
+    cardBody.append(meta, h3, desc, contribsWrap);
     article.append(cardMedia, cardBody);
     grid.appendChild(article);
   });
