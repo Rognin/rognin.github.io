@@ -568,14 +568,16 @@ main {
   background: var(--color-bg-elevated);
 }
 
-.card-media img {
+.card-media img,
+.card-media video {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform var(--transition-base);
 }
 
-.project-card:hover .card-media img {
+.project-card:hover .card-media img,
+.project-card:hover .card-media video {
   transform: scale(1.04);
 }
 
@@ -652,6 +654,7 @@ main {
 .tag-engine { color: var(--color-accent-highlight); }
 .tag-lang   { color: var(--color-secondary); }
 .tag-jam    { color: #f59e0b; }
+.tag-tool   { color: var(--color-text-muted); }
 
 .card-title {
   font-family: var(--font-display);
@@ -928,65 +931,107 @@ main {
 .snippet-panel pre[class*="language-"]::-webkit-scrollbar-thumb  { background: var(--color-border); border-radius: 999px; }
 .snippet-panel pre[class*="language-"]::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }
 
-/* Card tech-stack chip row */
-.card-tech-stack {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-}
-
-.card-tech-chip {
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: var(--color-text-muted);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  padding: 1px 6px;
-  letter-spacing: 0.03em;
-}
 
 /* =====================================================================
    PROJECT PAGE
    ===================================================================== */
 .project-page {
-  max-width: 860px;
+  max-width: 1100px;
   margin: 0 auto;
   padding: var(--space-xl) var(--space-lg) var(--space-2xl);
 }
 
-.project-topbar {
+.project-sidebar {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-md);
+}
+
+.project-sidebar-sticky {
+  display: contents;
+}
+
+@media (min-width: 1300px) {
+  .project-sidebar {
+    position: fixed;
+    top: var(--space-lg);
+    left: var(--space-lg);
+    z-index: 50;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    margin-bottom: 0;
+  }
 }
 
 .project-back {
-  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  font-size: 0.82rem;
   font-weight: 600;
   color: var(--color-text-muted);
   text-decoration: none;
   letter-spacing: 0.04em;
-  transition: color var(--transition-fast);
+  transition: color var(--transition-fast), border-color var(--transition-fast);
 }
 
 .project-back:hover {
   color: var(--color-accent-highlight);
+  border-color: var(--color-accent-highlight);
 }
 
 .project-title {
   font-family: var(--font-display);
   font-size: clamp(1.8rem, 5vw, 3rem);
   color: var(--color-text);
-  margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-md);
   line-height: 1.15;
 }
 
-.project-tech {
+.project-meta-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: var(--space-lg);
+  margin: 0 0 var(--space-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.project-meta-item {
+  display: flex;
+  flex-direction: column;
+  padding: 0.6rem 1rem;
+  flex: 1;
+  min-width: 90px;
+  border-right: 1px solid var(--color-border);
+  background: var(--color-bg-surface);
+}
+
+.project-meta-item:last-child {
+  border-right: none;
+}
+
+.project-meta-item dt {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 3px;
+}
+
+.project-meta-item dd {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text);
 }
 
 .project-media {
@@ -1011,6 +1056,13 @@ main {
   color: var(--color-text-muted);
   line-height: 1.8;
   margin-bottom: var(--space-lg);
+}
+
+.project-features-intro {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  line-height: 1.8;
+  margin-bottom: var(--space-md);
 }
 
 .project-links {
@@ -1197,6 +1249,7 @@ main {
   .projects-grid {
     grid-template-columns: 1fr;
   }
+
 }
 
 /* =====================================================================
